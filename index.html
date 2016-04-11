@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cavavin</title>
+  <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+  <link href="node_modules/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
+  <link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body ng-app="cavavin">
+<main ng-controller="MainCtrl as main" class="container">
+  <div class="navbar navbar-form navbar-fixed-top" role="search">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Search" ng-model="main.search.$">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </div>
+  <table ng-class="'table table-hover'">
+    <thead>
+    <th ng-click="main.changeOrder('id')">
+      <span ng-show="main.order == 'id'">▲</span>
+      <span ng-show="main.order == '-id'">▼</span>id
+      <input type="number" min="0" step="1" ng-model="main.search['id']"/>
+    </th>
+    <th ng-click="main.changeOrder('vigneron')">
+      <span ng-show="main.order == 'vigneron'">▲</span>
+      <span ng-show="main.order == '-vigneron'">▼</span>vigneron
+      <input type="string" ng-model="main.search['vigneron']"/>
+    </th>
+
+    <th ng-click="main.changeOrder('color')">
+      <span ng-show="main.order == 'color'">▲</span>
+      <span ng-show="main.order == '-color'">▼</span>color
+      <input type="string" ng-model="main.search['color']"/>
+    </th>
+    <th ng-click="main.changeOrder('cepage')">
+      <span ng-show="main.order == 'cepage'">▲</span>
+      <span ng-show="main.order == '-cepage'">▼</span>cepage
+      <input type="string" ng-model="main.search['cepage']"/>
+    </th>
+    <th ng-click="main.changeOrder('region')">
+      <span ng-show="main.order == 'region'">▲</span>
+      <span ng-show="main.order == '-region'">▼</span>region
+      <input type="string" ng-model="main.search['region']"/>
+    </th>
+    <th ng-click="main.changeOrder('year')">
+      <span ng-show="main.order == 'year'">▲</span>
+      <span ng-show="main.order == '-year'">▼</span>year
+      <input type="number" min="1700" max="2015" step="1" ng-model="main.search['year']"/>
+    </th>
+    <th ng-click="main.changeOrder('quantity')">
+      <span ng-show="main.order == 'quantity'">▲</span>
+      <span ng-show="main.order == '-quantity'">▼</span>quantity
+      <input type="number" min="0" max="100" step="1" ng-model="main.search['quantity']"/>
+    </th>
+    <th ng-click="main.changeOrder('degree')">
+      <span ng-show="main.order == 'degree'">▲</span>
+      <span ng-show="main.order == '-degree'">▼</span>degree
+      <input type="number" min="0" max="15" ng-model="main.search['degree']"/>
+    </th>
+    <th ng-click="main.changeOrder('volume')">
+      <span ng-show="main.order == 'volume'">▲</span>
+      <span ng-show="main.order == '-volume'">▼</span>volume en centilitres
+      <input type="number" min="1" max="1000" step="1" ng-model="main.search['volume']"/>
+    </th>
+    <th>description</th>
+    <th ng-click="main.changeOrder('castle')">
+      <span ng-show="main.order == 'castle'">▲</span>
+      <span ng-show="main.order == '-castle'">▼</span>castle
+      <input type="text" ng-model="main.search['castle']"/>
+    </th>
+    <th ng-click="main.changeOrder('email')">
+      <span ng-show="main.order == 'email'">▲</span>
+      <span ng-show="main.order == '-email'">▼</span>email
+      <input type="email" ng-model="main.search['email']"/>
+    </th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="wine in main.wines | filter:main.search | orderBy: main.order">
+      <td>{{ wine.id }}</td>
+      <td>{{ wine.vigneron | rot13 }}</td>
+      <td>{{ wine.color }}</td>
+      <td>{{ wine.cepage | uppercase }}</td>
+      <td>{{ wine.region }}</td>
+      <td>{{ wine.year }}</td>
+      <td>{{ wine.quantity }}</td>
+      <td>{{ wine.degree }}</td>
+      <td>{{ wine.volume }}</td>
+      <td>{{ wine.description | truncate:20 }}</td>
+      <td>{{ wine.castle }}</td>
+      <td>{{ wine.email }}</td>
+    </tr>
+    </tbody>
+  </table>
+</main>
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+<script src="node_modules/chance/chance.js"></script>
+<script src="generate-win.js"></script>
+<script src="app.js"></script>
+<script src="controllers.js"></script>
+<script src="filters.js"></script>
+</body>
+</html>
