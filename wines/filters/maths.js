@@ -4,6 +4,9 @@
 angular.module('mathsOsin', [])
   .filter('sum', function () {
     return function (input) {
+      if(input.length === 0){
+        return input;
+      }
       // imperative
       // var sum = 0;
       // for (var i = 0; i < input.length; i++) {

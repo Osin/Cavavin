@@ -1,0 +1,127 @@
+<section class="page-header" ng-controller="CreateCtrl as create" ng-cloak>
+  <h2>Ajouter un vin</h2>
+  <form class="form-horizontal" name="wineForm" ng-submit="create.createWine(wineForm, wine)" novalidate>
+    <script type="text/ng-template" id="error-messages">
+      <div ng-message="required">Ce champ est requis</div>
+      <div ng-message="pattern">Ce champ ne respecte pas le pattern</div>
+      <div ng-message="min">Ce champ n'est pas assez grand</div>
+      <div ng-message="max">Ce champ est trop grand</div>
+    </script>
+    <div class="form-group"
+         ng-class="(wineForm.vigneron.$touched || wineForm.$submitted ) ? wineForm.vigneron.$invalid ? 'has-error':'has-success' : ''">
+      <label for="vigneron" class="col-sm-2 control-label">Vigneron</label>
+      <div ng-messages="wineForm.vigneron.$error" ng-if="wineForm.vigneron.$touched || wineForm.$submitted">
+        <div ng-messages-include="error-messages"></div>
+      </div>
+      <div class="col-sm-10">
+        <input ng-model="wine.vigneron" ng-pattern="/a$/" required class="form-control" name="vigneron" id="vigneron"
+               placeholder="vigneron">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="color" class="col-sm-2 control-label">Color</label>
+      <div class="col-sm-10">
+        <select class="form-control" id="color" name="color" ng-model="wine.color"
+                ng-options="color for color in create.colors">
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cepage" class="col-sm-2 control-label">Cepage</label>
+      <div class="col-sm-10">
+        <select placeholder="Cepage" class="form-control" id="cepage" name="cepage" ng-model="wine.cepage"
+                ng-options="cepage for cepage in create.cepages">
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="region" class="col-sm-2 control-label">Region</label>
+      <div class="col-sm-10">
+        <select class="form-control" id="region" name="region" ng-model="wine.region"
+                ng-options="region for region in create.regions">
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="year" class="col-sm-2 control-label">Year</label>
+      <div ng-if="wineForm.year.$touched">
+        <div ng-if="wineForm.year.$error.required">Ce champ est requis</div>
+        <div ng-if="wineForm.year.$error.pattern">Ce champ ne respecte pas le pattern</div>
+      </div>
+      <div class="col-sm-10">
+        <input ng-model="wine.year" type="number" class="form-control" name="year" id="year" placeholder="Year">
+      </div>
+    </div>
+    <div class="form-group"
+         ng-class="(wineForm.quantity.$touched || wineForm.$submitted ) ? wineForm.quantity.$invalid ? 'has-error':'has-success' : ''">
+      <label for="quantity" class="col-sm-2 control-label">Quantity</label>
+      <div ng-messages="wineForm.quantity.$error" ng-if="wineForm.quantity.$touched">
+        <div ng-message="min">Ce champ doit faire 1 au min</div>
+        <div ng-message="max">Ce champ doit faire 100 au max</div>
+        <div ng-messages-include="error-messages"></div>
+      </div>
+      <div class="col-sm-10">
+        <input ng-model="wine.quantity" type="number" ng-minlength="1" ng-maxlength="100" step="1"
+               class="form-control" name="quantity" id="quantity" placeholder="Quantity">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="degree" class="col-sm-2 control-label">Degree</label>
+      <div ng-if="wineForm.degree.$touched">
+        <div ng-if="wineForm.degree.$error.required">Ce champ est requis</div>
+        <div ng-if="wineForm.degree.$error.pattern">Ce champ ne respecte pas le pattern</div>
+      </div>
+      <div class="col-sm-10">
+        <input ng-model="wine.degree" type="number" class="form-control" name="degree" id="degree"
+               placeholder="degree">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="volume" class="col-sm-2 control-label">Volume</label>
+      <div ng-if="wineForm.volume.$touched">
+        <div ng-if="wineForm.volume.$error.required">Ce champ est requis</div>
+        <div ng-if="wineForm.volume.$error.pattern">Ce champ ne respecte pas le pattern</div>
+      </div>
+      <div class="col-sm-10">
+        <input ng-model="wine.volume" type="number" class="form-control" name="volume" id="volume"
+               placeholder="volume">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description" class="col-sm-2 control-label">Description</label>
+      <div class="col-sm-10">
+        <textarea ng-model="wine.description" name="description" id="description" class="form-control"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description" class="col-sm-2 control-label">Castle</label>
+      <div class="col-sm-10">
+        <input name="castle" type="checkbox" ng-model="wine.castle">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email" class="col-sm-2 control-label">Email</label>
+      <div ng-if="wineForm.email.$touched">
+        <div ng-if="wineForm.email.$error.required">Ce champ est requis</div>
+        <div ng-if="wineForm.email.$error.pattern">Ce champ ne respecte pas le pattern</div>
+      </div>
+      <div class="col-sm-10">
+        <input ng-model="wine.email" type="email" class="form-control" name="email" id="email" placeholder="Email">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"> Remember me
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <input type="submit" class="pull-right btn btn-primary" value="Submit"/>
+      </div>
+    </div>
+  </form>
+</section>

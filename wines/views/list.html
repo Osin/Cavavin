@@ -1,0 +1,95 @@
+<section ng-controller="ListCtrl as list" ng-cloak>
+  <div class="page-header">
+    <h2>Hardcoded table</h2>
+  </div>
+  <h2>Dynamic table</h2>
+  </div>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th ng-repeat="h in list.headers" ng-click="list.sort(h)">
+        <span ng-show="!list.reverse && list.predicate === h">▲</span>
+        <label>{{ h }}</label><input ng-model="list.search[h]">
+        <span ng-show="list.reverse && list.predicate === h">▼</span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="wine in list.wines | filter:list.search | orderBy:list.predicate:list.reverse">
+      <td ng-repeat="h in list.headers" ng-switch="h">
+        <span ng-switch-default>{{ wine[h] }}</span>
+        <span ng-switch-when="id"><a href="#/wine/{{wine.id}}">{{ wine.id }}</a></span>
+        <span ng-switch-when="cepage">{{ wine[h] | uppercase }}</span>
+        <span ng-switch-when="description">{{ wine[h] | truncate }}</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- list data hardcoded-->
+  <section class="page-header">
+    <h2>Hardcoded table</h2>
+  </section>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>id</th>
+      <th>vigneron</th>
+      <th>color</th>
+      <th>cepage</th>
+      <th>region</th>
+      <th>year</th>
+      <th>quantity</th>
+      <th>degree</th>
+      <th>volume</th>
+      <th>description</th>
+      <th>castle</th>
+      <th>email</th>
+    </tr>
+    <tr>
+      <th><input type="number" ng-model="list.search.id"></th>
+      <th><input ng-model="list.search.vigneron"></th>
+      <th><input ng-model="list.search.color"></th>
+      <th><select ng-model="list.search.cepage" ng-options="cepage for cepage in list.cepages">
+        <option value="">All</option>
+      </select></th>
+      <th><input ng-model="list.search.region"></th>
+      <th><input type="number" ng-model="list.search.year"></th>
+      <th><input type="number" ng-model="list.search.quantity"></th>
+      <th><input type="number" ng-model="list.search.degree"></th>
+      <th><input type="number" ng-model="list.search.volume"></th>
+      <th><input ng-model="list.search.description"></th>
+      <th><input type="checkbox" ng-model="list.search.castle"></th>
+      <th><input type="email" ng-model="list.search.email"></th>
+    </tr>
+    </thead>
+    <tfoot style="display: table-row-group;">
+    <tr>
+      <td colspan="5">Moyennes:</td>
+      <td>{{ list.wines | filter:list.search | pluck:'year' | average | number }}</td>
+      <td>{{ list.wines | filter:list.search | pluck:'quantity' | average | number }}</td>
+      <td>{{ list.wines | filter:list.search | pluck:'degree' | average | number }}</td>
+      <td>{{ list.wines | filter:list.search | pluck:'volume' | average | number }}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr ng-repeat="wine in list.wines | filter:list.search | orderBy:list.predicate:list.reverse">
+      <td><a href="#/wine/{{wine.id}}">{{ wine.id }}</a></td>
+      <td>{{ wine.vigneron | rot13 }}</td>
+      <td>{{ wine.color }}</td>
+      <td>{{ wine.cepage | uppercase }}</td>
+      <td>{{ wine.region }}</td>
+      <td>{{ wine.year }}</td>
+      <td>{{ wine.quantity }}</td>
+      <td>{{ wine.degree }}</td>
+      <td>{{ wine.volume }}</td>
+      <td>{{ wine.description | truncate:20 }}</td>
+      <td>{{ wine.castle }}</td>
+      <td>{{ wine.email }}</td>
+    </tr>
+    </tbody>
+  </table>
+</section>

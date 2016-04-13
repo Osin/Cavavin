@@ -1,0 +1,18 @@
+<section ng-controller="DetailCtrl as detail" ng-cloak>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <div class="thumbnail">
+        <img class="img-responsive" src="https://les5duvin.files.wordpress.com/2015/03/about-vinolok.jpg"/>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <div class="page-header">
+        <h1>{{ detail.wine.vigneron }} ({{ detail.wine.color }})</h1>
+        <h2>Harvested in {{ detail.wine.year }} from {{ detail.wine.region }}</h2>
+        <div>
+          {{ detail.wine.description }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
